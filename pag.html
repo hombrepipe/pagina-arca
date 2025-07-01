@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Psicomotricidad ARCA</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Aplicar la fuente Inter a todo el cuerpo del documento */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos para el acordeón de FAQ */
+        .faq-item input[type="checkbox"] {
+            display: none; /* Oculta el checkbox */
+        }
+        .faq-item label {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #f0f9ff; /* blue-50 */
+            border-radius: 0.5rem;
+            font-weight: 600; /* semibold */
+            color: #1e40af; /* blue-800 */
+            transition: background-color 0.3s ease;
+        }
+        .faq-item label:hover {
+            background-color: #e0f2fe; /* blue-100 */
+        }
+        .faq-item label svg {
+            transition: transform 0.3s ease;
+        }
+        .faq-item input[type="checkbox"]:checked + label svg {
+            transform: rotate(180deg);
+        }
+        .faq-item .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            background-color: #ffffff;
+            border-radius: 0 0 0.5rem 0.5rem;
+            padding: 0 1rem; /* Inicialmente sin padding vertical */
+            color: #4b5563; /* gray-600 */
+        }
+        .faq-item input[type="checkbox"]:checked ~ .faq-content {
+            max-height: 200px; /* Suficientemente grande para el contenido, ajustar si es necesario */
+            padding: 1rem; /* Añade padding cuando está abierto */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- =================================
+        HEADER & NAVIGATION
+    ================================== -->
+    <header class="bg-white/90 backdrop-blur-lg shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#inicio" class="flex-shrink-0">
+                    <!-- IMPORTANTE: Reemplaza 'tu-usuario' con tu nombre de usuario de GitHub
+                         y 'mi-pagina-arca' con el nombre de tu repositorio de GitHub Pages.
+                         Asegúrate de que la ruta a 'media/ARCA.png' sea correcta dentro de tu repositorio. -->
+                    <img class="h-12 w-auto rounded-lg" src="https://tu-usuario.github.io/mi-pagina-arca/media/ARCA.png" alt="Logo del Centro ARCA">
+                </a>
+
+                <!-- Navegación para Escritorio -->
+                <nav class="hidden md:flex md:space-x-8" aria-label="Navegación principal">
+                    <a href="#quienes-somos" class="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300">Quiénes Somos</a>
+                    <a href="#nuestro-equipo" class="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300">Nuestro Equipo</a>
+                    <a href="#terapias" class="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300">Nuestras Terapias</a>
+                    <a href="#testimonios" class="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300">Testimonios</a>
+                    <a href="#faq" class="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300">Preguntas Frecuentes</a>
+                    <a href="#contacto" class="text-gray-600 hover:text-blue-600 font-medium transition-colors duration-300">Contacto</a>
+                </nav>
+
+                <!-- Botón para Menú Móvil -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-2" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menú móvil">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Navegación para Móvil (inicialmente oculta) -->
+            <nav id="mobile-menu" class="hidden md:hidden pb-4" aria-label="Navegación móvil">
+                <ul class="flex flex-col space-y-2 text-center">
+                    <li><a href="#quienes-somos" class="block text-gray-600 hover:text-blue-600 py-2 font-medium transition-colors duration-300 rounded-md" onclick="document.getElementById('mobile-menu').classList.add('hidden');">Quiénes Somos</a></li>
+                    <li><a href="#nuestro-equipo" class="block text-gray-600 hover:text-blue-600 py-2 font-medium transition-colors duration-300 rounded-md" onclick="document.getElementById('mobile-menu').classList.add('hidden');">Nuestro Equipo</a></li>
+                    <li><a href="#terapias" class="block text-gray-600 hover:text-blue-600 py-2 font-medium transition-colors duration-300 rounded-md" onclick="document.getElementById('mobile-menu').classList.add('hidden');">Nuestras Terapias</a></li>
+                    <li><a href="#testimonios" class="block text-gray-600 hover:text-blue-600 py-2 font-medium transition-colors duration-300 rounded-md" onclick="document.getElementById('mobile-menu').classList.add('hidden');">Testimonios</a></li>
+                    <li><a href="#faq" class="block text-gray-600 hover:text-blue-600 py-2 font-medium transition-colors duration-300 rounded-md" onclick="document.getElementById('mobile-menu').classList.add('hidden');">Preguntas Frecuentes</a></li>
+                    <li><a href="#contacto" class="block text-gray-600 hover:text-blue-600 py-2 font-medium transition-colors duration-300 rounded-md" onclick="document.getElementById('mobile-menu').classList.add('hidden');">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-20 md:pt-20"> <!-- Padding top para compensar el header fijo -->
+
+        <!-- =================================
+            SECCIÓN HERO / INICIO
+        ================================== -->
+        <section id="inicio" class="relative text-center py-20 md:py-32 bg-gradient-to-br from-blue-100 to-blue-50 overflow-hidden">
+            <div class="absolute inset-0 opacity-40" style="background-image: url('https://placehold.co/1200x800/e0f2fe/ffffff?text=Fondo+Abstracto'); background-size: cover; background-position: center;"></div>
+            <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-blue-900 tracking-tight leading-tight">
+                    Centro de Psicomotricidad ARCA
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">
+                    Potenciamos el desarrollo integral de cada niño a través del movimiento, el juego y el afecto, en un ambiente seguro y estimulante.
+                </p>
+                <a href="#contacto" class="mt-8 inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Agenda una Evaluación
+                </a>
+            </div>
+        </section>
+
+        <!-- =================================
+            SECCIÓN QUIÉNES SOMOS
+        ================================== -->
+        <section id="quienes-somos" class="py-16 md:py-24 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Quiénes Somos</h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        En ARCA, somos un equipo de profesionales apasionados y dedicados al desarrollo infantil. Creemos firmemente que la psicomotricidad es la base para un crecimiento saludable y armónico, permitiendo a los niños explorar, aprender y conectar con el mundo de una manera integral y significativa.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Nuestro enfoque se centra en crear un ambiente seguro, lúdico y de confianza, donde cada niño puede desarrollar sus habilidades motoras, cognitivas, emocionales y sociales a su propio ritmo, fomentando su autonomía y bienestar.
+                    </p>
+                </div>
+                <div class="order-1 md:order-2">
+                    <!-- Imagen representativa -->
+                    <img src="https://placehold.co/600x400/a9d6e5/ffffff?text=Niños+Jugando" alt="Niños en terapia de psicomotricidad, jugando y explorando" class="rounded-xl shadow-2xl w-full h-auto object-cover">
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================
+            SECCIÓN NUESTRO EQUIPO
+        ================================== -->
+        <section id="nuestro-equipo" class="py-16 md:py-24 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Conoce a Nuestro Equipo</h2>
+                <p class="max-w-3xl mx-auto text-gray-600 mb-12">
+                    Profesionales apasionados y altamente especializados en el desarrollo infantil, listos para acompañar a tu familia en cada paso del camino.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Miembro del Equipo 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="showTeamMemberModal('Ana Rodríguez', 'Psicomotricista Principal', 'https://placehold.co/150x150/89c2d9/ffffff?text=Perfil+1', 'Ana es una psicomotricista con más de 10 años de experiencia. Su enfoque se centra en el juego libre y la expresión corporal para fomentar el desarrollo integral de los niños. Es especialista en intervención temprana y dificultades del desarrollo.');">
+                        <img class="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200" src="https://placehold.co/150x150/89c2d9/ffffff?text=Perfil+1" alt="Foto de Ana Rodríguez">
+                        <h3 class="font-bold text-xl text-gray-800">Ana Rodríguez</h3>
+                        <p class="text-blue-600 font-medium">Psicomotricista Principal</p>
+                    </div>
+                    <!-- Miembro del Equipo 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="showTeamMemberModal('Carlos Vega', 'Terapeuta Ocupacional', 'https://placehold.co/150x150/61a5c2/ffffff?text=Perfil+2', 'Carlos es un terapeuta ocupacional experto en integración sensorial. Ayuda a los niños a mejorar sus habilidades de procesamiento sensorial y a participar activamente en sus actividades diarias, promoviendo su autonomía.');">
+                        <img class="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200" src="https://placehold.co/150x150/61a5c2/ffffff?text=Perfil+2" alt="Foto de Carlos Vega">
+                        <h3 class="font-bold text-xl text-gray-800">Carlos Vega</h3>
+                        <p class="text-blue-600 font-medium">Terapeuta Ocupacional</p>
+                    </div>
+                    <!-- Miembro del Equipo 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="showTeamMemberModal('Laura Méndez', 'Psicóloga Infantil', 'https://placehold.co/150x150/468faf/ffffff?text=Perfil+3', 'Laura es psicóloga infantil con especialización en desarrollo emocional y conductual. Ofrece apoyo a niños y familias para manejar emociones, fortalecer vínculos y promover un crecimiento psicológico saludable.');">
+                        <img class="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200" src="https://placehold.co/150x150/468faf/ffffff?text=Perfil+3" alt="Foto de Laura Méndez">
+                        <h3 class="font-bold text-xl text-gray-800">Laura Méndez</h3>
+                        <p class="text-blue-600 font-medium">Psicóloga Infantil</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal para Miembros del Equipo -->
+        <div id="team-member-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 hidden" aria-modal="true" role="dialog">
+            <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full relative transform scale-95 opacity-0 transition-all duration-300 ease-out">
+                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl" onclick="hideTeamMemberModal()" aria-label="Cerrar">
+                    &times;
+                </button>
+                <img id="modal-member-image" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-blue-300" src="" alt="Foto del miembro del equipo">
+                <h3 id="modal-member-name" class="font-bold text-2xl text-gray-800 text-center mb-2"></h3>
+                <p id="modal-member-title" class="text-blue-600 font-semibold text-center mb-4"></p>
+                <p id="modal-member-bio" class="text-gray-700 text-center leading-relaxed"></p>
+            </div>
+        </div>
+
+        <!-- =================================
+            SECCIÓN NUESTRAS TERAPIAS
+        ================================== -->
+        <section id="terapias" class="py-16 md:py-24 bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Nuestras Terapias y Servicios</h2>
+                    <p class="max-w-3xl mx-auto text-gray-600 mb-12">
+                        Intervenciones personalizadas y basadas en evidencia para potenciar el desarrollo integral de cada niño, adaptándonos a sus necesidades únicas.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Servicio 1 -->
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Evaluación del Desarrollo</h3>
+                        <p class="text-gray-600">Análisis completo de las áreas psicomotoras, cognitivas, emocionales y sociales para crear un plan de intervención a medida y personalizado.</p>
+                    </div>
+                    <!-- Servicio 2 -->
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Terapia de Psicomotricidad</h3>
+                        <p class="text-gray-600">Sesiones individuales o grupales centradas en el juego y el movimiento para trabajar la coordinación, equilibrio, tono muscular, esquema corporal y lateralidad.</p>
+                    </div>
+                    <!-- Servicio 3 -->
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Atención Temprana</h3>
+                        <p class="text-gray-600">Intervención especializada para bebés y niños pequeños (0-6 años) para prevenir y atender posibles dificultades en el desarrollo, estimulando sus capacidades.</p>
+                    </div>
+                     <!-- Servicio 4 -->
+                     <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Integración Sensorial</h3>
+                        <p class="text-gray-600">Terapia para ayudar a los niños a procesar y organizar la información sensorial de su entorno, mejorando su respuesta adaptativa y participación en actividades.</p>
+                    </div>
+                    <!-- Servicio 5 -->
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Apoyo Familiar y Parental</h3>
+                        <p class="text-gray-600">Orientación y herramientas para padres y cuidadores, fortaleciendo el vínculo familiar y promoviendo un ambiente de apoyo para el desarrollo del niño.</p>
+                    </div>
+                    <!-- Servicio 6 -->
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Talleres Lúdicos</h3>
+                        <p class="text-gray-600">Actividades grupales divertidas y educativas que fomentan la socialización, la creatividad y el desarrollo de habilidades a través del juego.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================
+            SECCIÓN TESTIMONIOS
+        ================================== -->
+        <section id="testimonios" class="py-16 md:py-24 bg-gray-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Lo que Dicen Nuestros Padres</h2>
+                <p class="max-w-2xl mx-auto text-gray-600 mb-12">
+                    La confianza de las familias es nuestro mayor motor. Escucha sus experiencias con el Centro ARCA.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Testimonio 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                        <p class="text-gray-700 italic mb-4">"Desde que mi hijo asiste a ARCA, he notado un cambio increíble en su confianza y coordinación. El equipo es maravilloso y muy profesional."</p>
+                        <div class="flex items-center justify-center">
+                            <img class="w-12 h-12 rounded-full mr-3" src="https://placehold.co/50x50/c0d9e5/ffffff?text=P1" alt="Foto de perfil del padre/madre">
+                            <p class="font-semibold text-gray-800">- María G.</p>
+                        </div>
+                    </div>
+                    <!-- Testimonio 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                        <p class="text-gray-700 italic mb-4">"Las terapias han sido fundamentales para el desarrollo de mi hija. El ambiente es muy cálido y ella siempre está feliz de ir. ¡Recomendado 100%!"</p>
+                        <div class="flex items-center justify-center">
+                            <img class="w-12 h-12 rounded-full mr-3" src="https://placehold.co/50x50/b0c9e0/ffffff?text=P2" alt="Foto de perfil del padre/madre">
+                            <p class="font-semibold text-gray-800">- Juan P.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================
+            SECCIÓN PREGUNTAS FRECUENTES (FAQ)
+        ================================== -->
+        <section id="faq" class="py-16 md:py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Preguntas Frecuentes</h2>
+                <p class="max-w-2xl mx-auto text-gray-600 mb-12">
+                    Encuentra respuestas a las dudas más comunes sobre nuestros servicios y el centro.
+                </p>
+                <div class="space-y-4 text-left">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item rounded-xl shadow-sm border border-blue-200">
+                        <input type="checkbox" id="faq1">
+                        <label for="faq1">
+                            ¿Qué es la psicomotricidad y para qué sirve?
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </label>
+                        <div class="faq-content">
+                            <p class="py-2">La psicomotricidad es una disciplina que estudia la relación entre el movimiento, la emoción y el intelecto. Ayuda a los niños a desarrollar sus habilidades motoras, cognitivas y socioemocionales a través del juego y la actividad corporal, favoreciendo su desarrollo integral.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item rounded-xl shadow-sm border border-blue-200">
+                        <input type="checkbox" id="faq2">
+                        <label for="faq2">
+                            ¿A qué edad se recomienda iniciar las terapias?
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </label>
+                        <div class="faq-content">
+                            <p class="py-2">Las terapias de psicomotricidad y atención temprana pueden iniciarse desde los primeros meses de vida, especialmente si se detectan señales de alerta en el desarrollo. No hay una edad límite, ya que se adaptan a las necesidades individuales de cada niño.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item rounded-xl shadow-sm border border-blue-200">
+                        <input type="checkbox" id="faq3">
+                        <label for="faq3">
+                            ¿Cómo puedo agendar una evaluación para mi hijo/a?
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </label>
+                        <div class="faq-content">
+                            <p class="py-2">Puedes agendar una evaluación contactándonos directamente a través de nuestro número de WhatsApp o enviándonos un correo electrónico. Encontrarás los enlaces en la sección de Contacto.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item rounded-xl shadow-sm border border-blue-200">
+                        <input type="checkbox" id="faq4">
+                        <label for="faq4">
+                            ¿Ofrecen sesiones individuales y grupales?
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </label>
+                        <div class="faq-content">
+                            <p class="py-2">Sí, en ARCA ofrecemos tanto sesiones individuales, adaptadas a las necesidades específicas de cada niño, como sesiones grupales, que fomentan la interacción social y el aprendizaje colaborativo en un entorno lúdico.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================
+            SECCIÓN CONTACTO
+        ================================== -->
+        <section id="contacto" class="py-16 md:py-24 bg-gray-50">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Ponte en Contacto</h2>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                    ¿Tienes preguntas o te gustaría agendar una visita? Estamos aquí para ayudarte. Contáctanos a través de WhatsApp o envíanos un correo.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                    <!-- Contacto por WhatsApp -->
+                    <a href="https://wa.me/56912345678" target="_blank" class="flex items-center justify-center gap-3 bg-green-500 text-white font-bold py-3 px-6 rounded-full shadow-md hover:bg-green-600 transition-colors w-full sm:w-auto transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" aria-label="Chatear por WhatsApp">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        <span>Chatear por WhatsApp</span>
+                    </a>
+                    <!-- Contacto por Email -->
+                    <a href="mailto:contacto@arca.cl" class="flex items-center justify-center gap-3 bg-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-md hover:bg-gray-800 transition-colors w-full sm:w-auto transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2" aria-label="Enviar un Email">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        <span>Enviar un Email</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =================================
+        FOOTER
+    ================================== -->
+    <footer class="bg-gray-800 text-white">
+        <div class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="font-bold text-lg">Centro de Psicomotricidad ARCA</p>
+            <div class="my-4 flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-6">
+                <a href="https://wa.me/56912345678" target="_blank" class="hover:text-blue-400 transition-colors text-sm sm:text-base" aria-label="WhatsApp del Centro ARCA">WhatsApp: +56 9 1234 5678</a>
+                <span class="hidden sm:inline text-gray-500">|</span>
+                <a href="mailto:contacto@arca.cl" class="hover:text-blue-400 transition-colors text-sm sm:text-base" aria-label="Email del Centro ARCA">Email: contacto@arca.cl</a>
+            </div>
+            <p class="text-gray-400 text-sm mt-4">&copy; 2025 Centro de Psicomotricidad ARCA. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botón Volver Arriba -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform scale-0 opacity-0 group focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Volver arriba">
+        <svg class="h-6 w-6 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </button>
+
+    <script>
+        // =================================
+        // Lógica del Menú Móvil
+        // =================================
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // =================================
+        // Lógica del Botón Volver Arriba
+        // =================================
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            // Muestra el botón cuando el scroll es mayor a 300px
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('scale-0', 'opacity-0');
+                backToTopButton.classList.add('scale-100', 'opacity-100');
+            } else {
+                backToTopButton.classList.remove('scale-100', 'opacity-100');
+                backToTopButton.classList.add('scale-0', 'opacity-0');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Desplazamiento suave
+            });
+        });
+
+        // =================================
+        // Lógica del Modal de Miembros del Equipo
+        // =================================
+        const teamMemberModal = document.getElementById('team-member-modal');
+        const modalMemberImage = document.getElementById('modal-member-image');
+        const modalMemberName = document.getElementById('modal-member-name');
+        const modalMemberTitle = document.getElementById('modal-member-title');
+        const modalMemberBio = document.getElementById('modal-member-bio');
+
+        function showTeamMemberModal(name, title, imageSrc, bio) {
+            modalMemberImage.src = imageSrc;
+            modalMemberImage.alt = `Foto de ${name}`;
+            modalMemberName.textContent = name;
+            modalMemberTitle.textContent = title;
+            modalMemberBio.textContent = bio;
+            
+            teamMemberModal.classList.remove('hidden');
+            // Animación de entrada
+            setTimeout(() => {
+                teamMemberModal.querySelector('div').classList.remove('scale-95', 'opacity-0');
+                teamMemberModal.querySelector('div').classList.add('scale-100', 'opacity-100');
+            }, 10); // Pequeño retraso para que la transición se aplique
+        }
+
+        function hideTeamMemberModal() {
+            // Animación de salida
+            teamMemberModal.querySelector('div').classList.remove('scale-100', 'opacity-100');
+            teamMemberModal.querySelector('div').classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                teamMemberModal.classList.add('hidden');
+            }, 300); // Coincide con la duración de la transición
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        teamMemberModal.addEventListener('click', (event) => {
+            if (event.target === teamMemberModal) {
+                hideTeamMemberModal();
+            }
+        });
+
+        // Cerrar modal con la tecla Escape
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !teamMemberModal.classList.contains('hidden')) {
+                hideTeamMemberModal();
+            }
+        });
+    </script>
+</body>
+</html>
