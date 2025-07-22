@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro de Psicomotricidad ARCA</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="media/ARCA.png">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -53,7 +56,7 @@
             color: #4b5563; /* gray-600 */
         }
         .faq-item input[type="checkbox"]:checked ~ .faq-content {
-            max-height: 200px; /* Suficientemente grande para el contenido, ajustar si es necesario */
+            max-height: 1000px; /* Suficientemente grande para el contenido, ajustar si es necesario */
             padding: 1rem; /* Añade padding cuando está abierto */
         }
         /* Estilos para el mapa responsivo */
@@ -76,7 +79,7 @@
         }
         /* Estilo para el fondo del hero con imagen */
         .hero-background {
-            background-image: url('media/ninos4.jpg'); /* src="media/ninos1.jpg" Estilo para el fondo del hero con imagen url('https://placehold.co/1200x800/89c2d9/ffffff?text=Fondo+Calmado'); /* Placeholder de imagen de fondo */
+            background-image: url('media/fotohijos.png'); /* Usando una ruta relativa: asume que 'media' está en el mismo nivel que tu archivo HTML */
             background-size: cover;
             background-position: center;
             position: absolute;
@@ -87,6 +90,35 @@
             position: absolute;
             inset: 0;
             background-color: rgba(0, 0, 0, 0.4); /* Capa oscura semitransparente */
+        }
+
+        /* Estilos para el contenido expandible del CV en el modal */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .collapsible-content.expanded {
+            max-height: 500px; /* Ajusta este valor según la altura máxima esperada del contenido del CV */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .collapsible-content ul {
+            list-style-type: disc; /* Puntos para la lista */
+            margin-left: 1.5rem;
+            text-align: left;
+        }
+        .collapsible-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Estilos para hacer el menú móvil scrollable */
+        #mobile-menu {
+            max-height: calc(100vh - 80px); /* Altura máxima del 100% del viewport menos la altura del header */
+            overflow-y: auto; /* Permite el scroll vertical si el contenido excede la altura máxima */
+            -webkit-overflow-scrolling: touch; /* Mejora el scroll en iOS */
         }
     </style>
 </head>
@@ -100,10 +132,8 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <a href="#inicio" class="flex-shrink-0">
-                    <!-- IMPORTANTE: Reemplaza 'tu-usuario' con tu nombre de usuario de GitHub
-                         y 'mi-pagina-arca' con el nombre de tu repositorio de GitHub Pages.
-                         Asegúrate de que la ruta a 'media/ARCA.png' sea correcta dentro de tu repositorio. -->
-                    <img class="h-14 w-auto rounded-lg" src="media/ARCA.png" alt="Logo del Centro ARCA">
+                    <!-- Usando una ruta relativa: asume que 'media' está en el mismo nivel que tu archivo HTML -->
+                    <img class="h-12 w-auto rounded-lg" src="media/ARCA.png" alt="Logo del Centro ARCA">
                 </a>
 
                 <!-- Navegación para Escritorio -->
@@ -167,20 +197,34 @@
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-3xl font-bold text-gray-800 mb-4">Conoce a Nuestro Equipo</h2>
                 <p class="max-w-3xl mx-auto text-gray-600 mb-12">
-                    Profesionales especializados en el desarrollo infantil y en apoyo familiar, listos para acompañar a tu familia. Haz clic para ver más detalles.
+                    Profesionales apasionados y especializados en el desarrollo infantil, listos para acompañar a tu familia. Haz clic para ver más detalles.
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-lg mx-auto">
                     <!-- Miembro del Equipo 1: Virginia Arenas Ángel -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="showTeamMemberModal('Virginia Arenas Ángel', 'Directora Centro ARCA, Terapeuta Psicomotriz', 'media/virginia.png', 'Virginia Arenas Ángel es la Directora del Centro ARCA. Es Terapeuta Psicomotriz y cuenta con un Magíster en Neuropsicología y Educación.');">
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" 
+                        onclick="showTeamMemberModal(
+                            'Virginia Arenas Ángel', 
+                            'Directora Centro ARCA, Terapeuta Psicomotriz', 
+                            'media/virginia.png', 
+                            'Virginia Arenas Ángel es la Directora del Centro ARCA. Es Terapeuta Psicomotriz y cuenta con un Magíster en Neuropsicología y Educación.',
+                            '<ul><li>Profesora de Educación Física. Universidad Católica-Chile.</li><li>Licenciada en Educación. Universidad de Santiago.</li><li>Posgrado Medicina Deportiva: Universidad de Barcelona.</li><li>Postgrado Psicomotricidad: Instituto de Ciencias Sanitarias y Educación. España.</li><li>Posgrado en Ciencias del Cuerpo en Psicomotricidad clínica. C.I.T.A.P. Barcelona Española Y O.I.P.R. Organización Internacional de Psicomotricidad. París, Francia.</li><li>Certificación Internacional de Ciencias y Técnicas del Cuerpo (CISTC). (Formación Franco-Española ISRP/OIPR).</li><li>Magíster en neuropsicología y educación. Universidad de La Rioja, España.</li><li>Formación en Reflejos Primitivos BRMT.</li><li>Formación en desarrollo de la lateralidad.</li><li>Formación inicial de optometría en trabajos de los movimientos oculares.</li><li>Especialista en psicomotricidad clínica y educativa en infancia temprana, bebés y niños con TGD/TEA y TDAH.</li><li>Formación en Escala Alberta para bebés.</li><li>Relatora en cursos y charlas.</li><li>Universitaria en pregrado y posgrado.</li><li>Directora de Centro Arca hasta la fecha.</li></ul>'
+                        );">
                         <img class="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200" src="media/virginia.png" alt="Foto de Virginia Arenas Ángel">
                         <h3 class="font-bold text-xl text-gray-800">Virginia Arenas Ángel</h3>
                         <p class="text-blue-600 font-medium">Directora Centro ARCA</p>
                     </div>
-                    <!-- Miembro del Equipo 2: Juan Felipe (Placeholder) -->
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="showTeamMemberModal('Juan Felipe Cortes Rittershausen', 'Psiquiatra psicoanalista', 'media/felipe.jpg', 'Juan Felipe Cortes Rittershausen es Psiquiatra psicoanalista. Ofrece apoyo a niños, adolescentes y familias.');">
+                    <!-- Miembro del Equipo 2: Juan Felipe Cortes Rittershausen -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 cursor-pointer" 
+                        onclick="showTeamMemberModal(
+                            'Juan Felipe Cortes Rittershausen', 
+                            'Psiquiatra psicoanalista', 
+                            'media/felipe.jpg', 
+                            'Juan Felipe Cortes Rittershausen es Psiquiatra psicoanalista. Ofrece apoyo a niños, adolescentes y familias.',
+                            '<ul><li>Estudios Universitarios: MEDICINA. Universidad de Concepción 1980 – 1986.</li><li>Estudios de post-grado: PSIQUIATRIA: Programa de formación de Especialistas en Psiquiatría de la escuela de post – grado de La Facultad de Medicina de la Universidad de Chile. Efectuado en el servicio “B” del Hospital Psiquiátrico Dr. José Horwitz Barak 1987-1990.</li><li>Estudios de 1° y 2° año en la formación de Psicoterapia analítica del ICHPA. 1991-1992.</li><li>PSICOANALISTA: Sociedad Chilena de Psicoanálisis, ICHPA. Titulado el 30 de Mayo de 2008. Miembro de la IFPS. International Federation of Psychoanalytic Societies.</li></ul>'
+                        );">
                         <img class="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200" src="media/felipe.jpg" alt="Foto de Juan Felipe Cortes Rittershausen">
                         <h3 class="font-bold text-xl text-gray-800">Juan Felipe Cortes Rittershausen</h3>
-                        <p class="text-blue-600 font-medium">Psiquiatra Psicoanalista</p>
+                        <p class="text-blue-600 font-medium">Psiquiatra psicoanalista</p>
                     </div>
                 </div>
             </div>
@@ -195,7 +239,20 @@
                 <img id="modal-member-image" class="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-blue-300" src="" alt="Foto del miembro del equipo">
                 <h3 id="modal-member-name" class="font-bold text-2xl text-gray-800 text-center mb-2"></h3>
                 <p id="modal-member-title" class="text-blue-600 font-semibold text-center mb-4"></p>
-                <p id="modal-member-bio" class="text-gray-700 text-center leading-relaxed"></p>
+                <p id="modal-member-bio" class="text-gray-700 text-center leading-relaxed mb-4"></p>
+                
+                <!-- Sección de CV expandible -->
+                <div class="border-t border-gray-200 pt-4 mt-4">
+                    <button id="toggle-cv-button" 
+                            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300 flex items-center justify-center gap-2"
+                            onclick="toggleCvDetails()">
+                        Ver CV Completo
+                        <svg id="cv-toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="modal-member-detailed-cv" class="collapsible-content text-gray-700">
+                        <!-- El contenido del CV detallado se insertará aquí mediante JavaScript -->
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -223,44 +280,44 @@
         <!-- =================================
             SECCIÓN NUESTRAS TERAPIAS
         ================================== -->
-        <section id="terapias" class="py-16 md:py-24 bg-white">
+         <section id="terapias" class="py-16 md:py-24 bg-white">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Nuestras Terapias y Servicios</h2>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Sobre nosotros y nuestros servicios</h2>
                     <p class="max-w-3xl mx-auto text-gray-600 mb-12">
-                        Intervenciones personalizadas para potenciar el desarrollo de cada niño.
+                        Descubre cómo nuestro enfoque integral puede apoyar el desarrollo y bienestar de tu familia.
                     </p>
                 </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Servicio 1 -->
+               <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Bloque 1: Centro de Psicomotricidad y Psiquiatría -->
                     <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h3 class="font-bold text-xl text-blue-800 mb-2">Evaluación del Desarrollo</h3>
-                        <p class="text-gray-600">Análisis completo de las áreas psicomotoras para crear un plan de intervención a medida.</p>
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Centro de Psicomotricidad y Psiquiatría</h3>
+                        <p class="text-gray-600">Fundado en 2001, ofrecemos orientación y acompañamiento a bebés, niños, adolescentes, adultos y familias. Nuestro equipo multidisciplinario externo aborda trastornos del neurodesarrollo, aprendizaje y educación, buscando el bienestar físico, psíquico y social.</p>
                     </div>
-                    <!-- Servicio 2 -->
+                    <!-- Bloque 2: El Trabajo de Centro ARCA -->
                     <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h3 class="font-bold text-xl text-blue-800 mb-2">Terapia de Psicomotricidad</h3>
-                        <p class="text-gray-600">Sesiones individuales o grupales para trabajar la coordinación, equilibrio, tono muscular y esquema corporal.</p>
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">El Trabajo de Centro ARCA</h3>
+                        <p class="text-gray-600">Con un enfoque clínico y educativo, nuestro equipo calificado integra diversas herramientas y profesionales. Nos basamos en la línea Psicoanalítica, realizando supervisión de casos clínicos y reuniones clínicas para una atención de calidad.</p>
                     </div>
-                    <!-- Servicio 3 -->
+                    <!-- Bloque 3: Nuestra Misión -->
                     <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h3 class="font-bold text-xl text-blue-800 mb-2">Atención Temprana</h3>
-                        <p class="text-gray-600">Intervención para bebés y niños pequeños (0-6 años) para prevenir y atender posibles dificultades en el desarrollo.</p>
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Nuestra Misión</h3>
+                        <p class="text-gray-600">Brindar atención integral (diagnóstica, preventiva, educativa, terapéutica) a lactantes, preescolares, escolares, adolescentes y sus familias. Abordamos áreas disminuidas en el desarrollo neuromadurativo, emocional, relacional, social y escolar, en un ambiente acogedor que promueve el aprendizaje y la armonía.</p>
                     </div>
-                     <!-- Servicio 4 -->
+                     <!-- Bloque 4: Servicio Integral a la Familia -->
                      <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h3 class="font-bold text-xl text-blue-800 mb-2">Integración Sensorial</h3>
-                        <p class="text-gray-600">Terapia para ayudar a los niños a procesar y organizar la información sensorial de su entorno, mejorando su respuesta adaptativa y participación en actividades.</p>
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">Servicio Integral a la Familia</h3>
+                        <p class="text-gray-600">Involucramos a los padres en el proceso terapéutico, facilitando nuevas formas de comunicación a través del juego. Ofrecemos un espacio de escucha activa con psiquiatras y psicólogos, donde las familias pueden expresar miedos, dudas y expectativas.</p>
                     </div>
-                    <!-- Servicio 5 -->
+                    <!-- Bloque 5: A Quién(es) Recibe ARCA -->
                     <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h3 class="font-bold text-xl text-blue-800 mb-2">Apoyo Familiar y Parental</h3>
-                        <p class="text-gray-600">Orientación y herramientas para padres y cuidadores, fortaleciendo el vínculo familiar y promoviendo un ambiente de apoyo para el desarrollo del niño.</p>
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">A Quién(es) Recibe ARCA</h3>
+                        <p class="text-gray-600">Recibimos a bebés, niñas y niños con dificultades motrices, de aprendizaje, lenguaje, neurodesarrollo (ej. mutismo, hiperactividad, TEA, TDAH, dislexia, discalculia, discapacidad intelectual), manejo de agresividad y apego. También ofrecemos apoyo emocional y psicológico a sus padres.</p>
                     </div>
-                    <!-- Servicio 6 -->
+                    <!-- Bloque 6: La Evaluación y el Proceso Terapéutico -->
                     <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h3 class="font-bold text-xl text-blue-800 mb-2">Talleres Lúdicos</h3>
-                        <p class="text-gray-600">Actividades grupales divertidas y educativas que fomentan la socialización, la creatividad y el desarrollo de habilidades a través del juego.</p>
+                        <h3 class="font-bold text-xl text-blue-800 mb-2">La Evaluación y el Proceso Terapéutico</h3>
+                        <p class="text-gray-600">Nuestro proceso terapéutico se basa en el Respeto, Profesionalismo, Compromiso, Transparencia, Confidencialidad e Integridad. Realizamos una evaluación del desarrollo para abordar eficazmente las dificultades que el niño enfrenta en su vida diaria.</p>
                     </div>
                 </div>
             </div>
@@ -284,7 +341,7 @@
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </label>
                         <div class="faq-content">
-                            <p class="py-2">La psicomotricidad es una disciplina que estudia la relación entre el movimiento, la emoción y el intelecto. Ayuda a los niños a desarrollar sus habilidades motoras, cognitivas y socioemocionales a través del juego y la actividad corporal, favoreciendo su desarrollo integral.</p>
+                            <p class="py-2">La psicomotricidad es una disciplina que estudia la relación entre el cuerpo, la mente, la cognición, lo afectivo y emocional. Por ello, nos importan las propias producciones del sujeto. Trabajamos en estimular aspectos senso-psico-motores del niño, impulsando los niveles más primarios a través del cuerpo, utilizando el juego y objetos como mediadores en la generación del deseo e intención, favoreciendo la apertura al mundo y la evolución de las diferentes disarmonías que permiten la construcción y constitución del propio cuerpo.</p>
                         </div>
                     </div>
                     <!-- FAQ Item 2 -->
@@ -295,7 +352,7 @@
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </label>
                         <div class="faq-content">
-                            <p class="py-2">Las terapias de psicomotricidad y atención temprana pueden iniciarse desde los primeros meses de vida, especialmente si se detectan señales de alerta en el desarrollo. No hay una edad límite, ya que se adaptan a las necesidades individuales de cada niño.</p>
+                            <p class="py-2">Las terapias de psicomotricidad y atención temprana pueden iniciarse desde los primeros 3 meses de vida, especialmente si se detectan señales de alerta en el desarrollo. No hay una edad límite, ya que nuestro trabajo se realiza basado en las necesidades individuales de cada niño y su propio ritmo biológico, adaptando las intervenciones a cada caso.</p>
                         </div>
                     </div>
                     <!-- FAQ Item 3 -->
@@ -317,7 +374,7 @@
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </label>
                         <div class="faq-content">
-                            <p class="py-2">Sí, en ARCA ofrecemos tanto sesiones individuales, adaptadas a las necesidades específicas de cada niño, como sesiones grupales, que fomentan la interacción social y el aprendizaje colaborativo en un entorno lúdico.</p>
+                            <p class="py-2">Sí, Centro ARCA realiza sesiones individuales. Luego de un tiempo de trabajo, si es necesario y de acuerdo a las necesidades específicas de cada niño, se pueden crear grupos de 2 o 3 niños a nivel grupal para fomentar la interacción social, el desarrollo de la empatía, la interacción con el otro y el aprendizaje colaborativo en un entorno lúdico.</p>
                         </div>
                     </div>
                 </div>
@@ -433,13 +490,32 @@
         const modalMemberName = document.getElementById('modal-member-name');
         const modalMemberTitle = document.getElementById('modal-member-title');
         const modalMemberBio = document.getElementById('modal-member-bio');
+        const modalMemberDetailedCv = document.getElementById('modal-member-detailed-cv');
+        const toggleCvButton = document.getElementById('toggle-cv-button');
+        const cvToggleIcon = document.getElementById('cv-toggle-icon');
 
-        function showTeamMemberModal(name, title, imageSrc, bio) {
+
+        function showTeamMemberModal(name, title, imageSrc, bio, detailedCvHtml) {
             modalMemberImage.src = imageSrc;
             modalMemberImage.alt = `Foto de ${name}`;
             modalMemberName.textContent = name;
             modalMemberTitle.textContent = title;
             modalMemberBio.textContent = bio;
+            
+            // Set detailed CV content and reset its state
+            modalMemberDetailedCv.innerHTML = detailedCvHtml;
+            modalMemberDetailedCv.classList.remove('expanded');
+            toggleCvButton.textContent = 'Ver CV Completo';
+            cvToggleIcon.style.transform = 'rotate(0deg)'; // Reset icon
+
+            // If detailed CV is empty, hide the button
+            if (detailedCvHtml.trim() === '' || detailedCvHtml.trim() === '<!-- Contenido del CV de Juan Felipe si lo tuvieras -->') {
+                toggleCvButton.classList.add('hidden');
+                modalMemberDetailedCv.classList.add('hidden'); // Ocultar también el contenedor del CV si no hay contenido
+            } else {
+                toggleCvButton.classList.remove('hidden');
+                modalMemberDetailedCv.classList.remove('hidden'); // Asegurarse de que el contenedor del CV no esté oculto
+            }
             
             teamMemberModal.classList.remove('hidden');
             // Animación de entrada
@@ -457,6 +533,19 @@
             setTimeout(() => {
                 teamMemberModal.classList.add('hidden');
             }, 300); // Coincide con la duración de la transición
+        }
+
+        // Función para expandir/contraer el CV detallado
+        function toggleCvDetails() {
+            if (modalMemberDetailedCv.classList.contains('expanded')) {
+                modalMemberDetailedCv.classList.remove('expanded');
+                toggleCvButton.textContent = 'Ver CV Completo';
+                cvToggleIcon.style.transform = 'rotate(0deg)';
+            } else {
+                modalMemberDetailedCv.classList.add('expanded');
+                toggleCvButton.textContent = 'Ocultar CV';
+                cvToggleIcon.style.transform = 'rotate(180deg)';
+            }
         }
 
         // Cerrar modal al hacer clic fuera del contenido
